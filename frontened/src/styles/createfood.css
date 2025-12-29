@@ -1,0 +1,115 @@
+
+.createfood-page {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: stretch; /* let card fill vertically */
+  justify-content: center;
+  background: transparent;
+}
+
+.createfood-card {
+  width: 100%;
+  max-width: 1100px;
+  height: calc(100vh - 24px); /* occupy nearly full viewport */
+  margin: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.createfood-card .close-btn {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.createfood-card h2 { margin: 0 0 6px 0; font-size: 1.6rem; }
+.createfood-card .muted { color: var(--text-secondary); margin-bottom: 14px; }
+
+.createfood-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  overflow: auto;
+  padding-right: 8px; /* allow room for scrollbar */
+}
+
+/* Floating scroll-to-form button */
+.scroll-to-form {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10010;
+  background: linear-gradient(90deg,var(--primary-start),var(--primary-end));
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  cursor: pointer;
+}
+.scroll-to-form.visible { opacity: 1; transform: translateY(0); }
+
+.createfood-form .field { display: flex; flex-direction: column; margin-bottom: 14px; }
+.createfood-form .label { font-weight: 700; margin-bottom: 8px; color: var(--text-secondary); }
+.createfood-form input[type="text"],
+.createfood-form textarea,
+.createfood-form input[type="file"] {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  padding: 12px 14px;
+  color: var(--text-primary);
+  border-radius: 10px;
+  transition: box-shadow 160ms ease, transform 120ms ease;
+}
+
+.createfood-form input[type="text"]:focus,
+.createfood-form textarea:focus {
+  outline: none;
+  box-shadow: 0 10px 30px rgba(59,130,246,0.06), 0 2px 6px rgba(8,22,48,0.2) inset;
+  border-color: var(--primary-color);
+}
+
+.createfood-form .hint { font-size: 0.85rem; color: var(--text-secondary); margin-top: 6px; }
+.preview { margin: 10px 0 14px; border-radius: 8px; overflow: hidden; }
+.preview video { width: 100%; height: auto; display: block; border-radius: 8px; max-height: 48vh; }
+
+.actions { display: flex; gap: 12px; margin-top: 12px; }
+.btn { padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border-color); background: transparent; color: var(--text-primary); cursor: pointer; transition: transform 120ms ease, box-shadow 120ms ease; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(2,6,23,0.45); }
+.btn.primary { background: linear-gradient(90deg,var(--primary-start),var(--primary-end)); border: none; color: var(--text-primary); font-weight: 800; box-shadow: 0 8px 24px rgba(79,172,254,0.12); }
+.btn.primary:hover { box-shadow: 0 12px 36px rgba(0,242,254,0.12); }
+.btn:disabled { opacity: 0.6; cursor: default; transform: none; box-shadow: none; }
+
+.message { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-weight: 600; }
+.message.error { background: rgba(255,77,77,0.06); color: var(--error-color); border: 1px solid rgba(255,77,77,0.06); }
+.message.success { background: rgba(34,197,94,0.06); color: var(--success-color); border: 1px solid rgba(34,197,94,0.06); }
+
+.actions { display: flex; gap: 12px; margin-top: 12px; }
+
+@media (max-width: 640px) {
+  .createfood-card { padding: 18px; border-radius: 10px; margin: 8px; }
+  .createfood-page { padding: 12px; align-items: flex-start; }
+  .actions { flex-direction: column; }
+  .btn { width: 100%; }
+  .preview video { max-height: 38vh; }
+}

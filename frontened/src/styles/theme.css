@@ -1,0 +1,46 @@
+:root {
+  /* Light Theme Variables (sensible fallbacks) */
+  --primary-start: #22d3ee; /* cyan */
+  --primary-end: #4f46e5;   /* indigo */
+  --primary-color: var(--primary-start);
+  --primary-hover: var(--primary-end);
+  --secondary-color: #64748b;
+  --text-primary: #0b1220; /* near-black */
+  --text-secondary: #475569;
+  --bg-primary: #f7fafc;
+  --bg-secondary: #eef2ff;
+  --input-bg: #ffffff;
+  --input-border: rgba(16,24,40,0.06);
+  --error-color: #ef4444;
+  --success-color: #22c55e;
+  --border-color: rgba(16,24,40,0.06);
+  --shadow-sm: 0 2px 6px rgba(2,6,23,0.06);
+  --shadow-md: 0 10px 30px rgba(2,6,23,0.12);
+  /* Card surface as layered subtle gradient to create texture */
+  --card-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  --card-surface: rgba(255,255,255,0.02);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-start: #00e0ff;
+    --primary-end: #3b82f6;
+    --primary-color: var(--primary-start);
+    --primary-hover: var(--primary-end);
+    --secondary-color: #94a3b8;
+    --text-primary: #e6eef6;
+    --text-secondary: #9fb0c6;
+    --bg-primary: #071426;
+    --bg-secondary: #071225;
+    /* slightly lifted surface with subtle gradient and vignette */
+    --card-bg: linear-gradient(180deg, rgba(12,20,32,0.65), rgba(6,10,18,0.76));
+    --input-bg: rgba(255,255,255,0.02);
+    --input-border: rgba(255,255,255,0.04);
+    --error-color: #f87171;
+    --success-color: #4ade80;
+    --border-color: rgba(255,255,255,0.04);
+    --shadow-sm: 0 2px 8px rgba(2,6,23,0.5);
+    --shadow-md: 0 12px 40px rgba(2,6,23,0.6);
+    --card-surface: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06));
+  }
+}
