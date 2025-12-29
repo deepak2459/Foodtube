@@ -10,7 +10,7 @@ import Createfood from "../components/Createfood.jsx";
 
 const AppRoutes = () => {
   return (
-    <Router>
+    
       <Routes>
         <Route path="/register" element={<UserRegister />} />
         <Route path="/login" element={<UserLogin />} />
@@ -20,7 +20,7 @@ const AppRoutes = () => {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/createfood" element={<Createfood />} />
       </Routes>
-    </Router>
+  
   )
 }
 

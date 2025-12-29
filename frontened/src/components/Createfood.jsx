@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/createfood.css'
 import { useNavigate } from 'react-router-dom';
-import API_URL from '../config/api.js';
+import API_URL from '../config/api.js'
 
 const Createfood = () => { 
     const navigate = useNavigate();
