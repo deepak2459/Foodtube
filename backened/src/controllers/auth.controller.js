@@ -4,6 +4,8 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { Partner } from "../models/partner.model.js";
 import { User } from "../models/user.models.js";
+ 
+
 
 // for user 
 async function registerUser(req,res)  { 
@@ -30,11 +32,11 @@ const user = await User.create({
 const token = jwt.sign({
  id :  user._id
 }
-    ,"BYjOy3IFq17K2AtdWBsKGBhupnBRlDdR")
+    ,process.env.JWT_SecretKey)
 
 res.cookie("token",token) 
 
-res.status(401)
+res.status(201)
 .json({
     message:"register sucessfully",
     user:{_id:user._id,
@@ -48,7 +50,7 @@ res.status(401)
 
 async function loggedIn(req,res){
     const {email,password} = req.body;
-   const UserExist =  User.find({email})
+   const UserExist = await  User.findOne({email})
    if(!UserExist){
     return res.status(201)
     .json({
@@ -56,7 +58,7 @@ async function loggedIn(req,res){
     })
    } 
 
-   const checkPass = bcrypt.compare(password,UserExist.password) 
+   const checkPass =  bcrypt.compare(password,UserExist.password) 
    if(!checkPass){
      return res.status(201)
     .json({
@@ -64,12 +66,15 @@ async function loggedIn(req,res){
     })
    } 
 
-   jwt.sign({
-    id:UserExist._id,
-   },"BYjOy3IFq17K2AtdWBsKGBhupnBRlDdR") 
+ const token =  jwt.sign({
+    _id:UserExist._id,
+   },process.env.JWT_SecretKey) 
+ 
+
+res.cookie("token",token) 
 
 
-   return res.status(401)
+   return res.status(201)
    .json({
       message:"logged in Sucessfully",
     user:{_id:UserExist._id,
@@ -89,14 +94,14 @@ function logout(req,res){
 //  for partner 
 async function registerPartner(req,res)  { 
 
-    const { username,fullname,email,password} = req.body;
+    const { username,fullname,email,password,restaurantName,address,contactNumber} = req.body;
     const UserExist = await Partner.findOne({email}) 
     if(UserExist){
-         return res.status(200)
+         return res.status(400)
          .json({message:"user already exist try another email"}) 
 }  
 if (!password) {
-  return res.status(201).json({ message: "Password is required" });
+  return res.status(401).json({ message: "Password is required" });
 }
 
 const pass = await bcrypt.hash(password,10) 
@@ -105,33 +110,39 @@ const part = await Partner.create({
     fullname,
     username,
     email,
-    password:pass
+    password:pass,
+    restaurantName,
+    address,
+    contactNumber
 }) 
 
 const token = jwt.sign({
- id :  Partner._id
+ id :  part._id
 }
-    ,"BYjOy3IFq17K2AtdWBsKGBhupnBRlDdR")
+    , process.env.JWT_SecretKey)
 
 res.cookie("token",token) 
 
-res.status(401)
+res.status(201)
 .json({
     message:"register sucessfully",
     partner:{_id:part._id,
     fullname:part.fullname,
     username:part.username,
-    email:part.email,}
-    
+    email:part.email,
+    restaurantName:part.restaurantName,
+    address:part.address,
+    contactNumber:part.contactNumber,
+  }
 
 })
 } 
 
 async function loggedInPartner(req,res){
     const {email,password} = req.body;
-   const UserExist = await Partner.find({email})
+   const UserExist = await Partner.findOne({email})
    if(!UserExist){
-    return res.status(201)
+    return res.status(401)
     .json({
         message:"invalid username and email"
     })
@@ -139,15 +150,21 @@ async function loggedInPartner(req,res){
 
    const checkPass = await bcrypt.compare(password,UserExist.password) 
    if(!checkPass){
-     return res.status(201)
+     return res.status(401)
     .json({
         message:"invalid username and email"
     })
    } 
 
-   jwt.sign({
-    id:UserExist._id,
-   },"BYjOy3IFq17K2AtdWBsKGBhupnBRlDdR") 
+//    jwt.sign({
+//     id:UserExist._id,
+//    },process.env.JWT_SecretKey) 
+const token = jwt.sign(
+  {   id: UserExist._id  },
+  process.env.JWT_SecretKey
+);
+
+res.cookie("token",token) 
 
 
    return res.status(201)

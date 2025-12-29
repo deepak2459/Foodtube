@@ -1,8 +1,18 @@
 import { Router } from "express";
-import check from "../middlewares/checking.js";
+import multer from "multer"
+import {checkAuthMiddleware,checkAuthUserMiddleware} from "../middlewares/checking.js";
+import { foodController,getfood } from "../controllers/food.auth.controller.js";
+
  
+ 
+const router = Router() 
 
+const upload = multer({
+    storage:multer.memoryStorage()
+})
 
-const router = Router()
+router.post("/",checkAuthMiddleware,upload.single("video"),foodController) 
 
-router.post("/",check)
+router.get("/",checkAuthUserMiddleware,getfood)
+
+export default router

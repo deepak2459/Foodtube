@@ -1,8 +1,8 @@
 import mongoose  from "mongoose"; 
 
 
-function connectDb(){
-    mongoose.connect("mongodb+srv://zomato_reel:Deepak%402005@cluster0.ss03c7u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+async function connectDb(){
+  await  mongoose.connect(process.env.MONGOOSE_URI )
     
     .then(()=>{
         console.log("Mongodb Connected Sucessfully");

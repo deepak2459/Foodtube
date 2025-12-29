@@ -1,8 +1,9 @@
-import { Partner } from "../models/partner.model"; 
+import { Partner } from "../models/partner.model.js";
+import { User } from "../models/user.models.js"; 
 import jwt from "jsonwebtoken"
 
-async function check(res,req,next){
-    const token = requestAnimationFrame.cookies.token;
+async function checkAuthMiddleware(req,res,next){
+    const token =  req.cookies.token;
        if(!token){
             return res.status(400)
             .json({
@@ -10,11 +11,51 @@ async function check(res,req,next){
             })
         }
     try {
-      const decoded = jwt.verify(token,"BYjOy3IFq17K2AtdWBsKGBhupnBRlDdR")
+      const decoded = await jwt.verify(token,process.env.JWT_SecretKey)
+    //   console.log(decoded.id);
+      
 
-      const foodpartner = await Partner.findById(decoded._id) 
+    //   const foodpartner = await Partner.findById(decoded._id) 
+      const foodpartner = await Partner.findById(decoded.id);
+    //   console.log(foodpartner);
+      
 
-      req.partner = foodpartner;
+      req.foodpartner = foodpartner;
+    //   console.log(req.foodpartner);
+      
+      next();
+
+    } catch (error) {
+        return res.status(400)
+            .json({
+                message:"Invalid Token"
+            })
+    }
+}  
+
+  
+ 
+async function checkAuthUserMiddleware(req,res,next){
+    const token =  req.cookies.token;
+       if(!token){
+            return res.status(400)
+            .json({
+                message:"please login"
+            })
+        }
+    try {
+      const decoded =   jwt.verify(token,process.env.JWT_SecretKey)
+    //   console.log(decoded.id);
+      
+
+    //   const foodpartner = await Partner.findById(decoded._id) 
+      const user = await User.findById(decoded.id);
+    //   console.log(foodpartner);
+      
+
+      req.user = user;
+    //   console.log(req.foodpartner);
+      
       next();
 
     } catch (error) {
@@ -25,4 +66,6 @@ async function check(res,req,next){
     }
 } 
 
-export default check
+export  {checkAuthMiddleware,
+  checkAuthUserMiddleware
+}
