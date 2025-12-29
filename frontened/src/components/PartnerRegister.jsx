@@ -1,6 +1,7 @@
 import '../styles/auth.css';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config/api.js'
 const PartnerRegister = ({ fitViewport = true }) => { 
 
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const PartnerRegister = ({ fitViewport = true }) => {
     
 
    const response = await axios.post(
-    "http://localhost:3000/api/auth/register/partner",
+    `${API_URL}/api/auth/register/partner`,
        {
           fullname, 
           username, 

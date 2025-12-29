@@ -6,6 +6,7 @@ import UserRegister from './UserRegister';
 import UserLogin from './UserLogin';
 import PartnerRegister from './PartnerRegister';
 import PartnerLogin from './PartnerLogin';
+import API_URL from '../config/api.js'
 
 const Home = () => {
   const videoRefs = useRef({});
@@ -43,7 +44,7 @@ const Home = () => {
     setLoading(true);
     setError(null);
 
-    axios.get('http://localhost:3000/api/food/', { withCredentials: true })
+    axios.get(`${API_URL}/api/food/`, { withCredentials: true })
       .then((res) => {
         if (!mounted) return;
         const data = res?.data?.food || [];

@@ -1,6 +1,7 @@
 import '../styles/auth.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import API_URL from '../config/api.js';
 
 const UserRegister = ({ showPartner, fitViewport = true, onSwitch, onAuthSuccess }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const UserRegister = ({ showPartner, fitViewport = true, onSwitch, onAuthSuccess
       const email = e.target.email.value;
       const password = e.target.password.value;
 
-     const res =  await axios.post('http://localhost:3000/api/auth/register/user',
+     const res =  await axios.post(`${API_URL}/api/auth/register/user`,
          { fullname, username, email, password },
          { withCredentials: true })
 
