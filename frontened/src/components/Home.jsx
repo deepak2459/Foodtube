@@ -23,7 +23,7 @@ const Home = () => {
     let mounted = true;
     const checkAuth = async () => {
       try {
-        await axios.get(' http://localhost:3000/api/auth/register/user', { withCredentials: true });
+        await axios.get(`${API_URL}/api/me`, { withCredentials: true });
         if (!mounted) return;
         setIsAuthed(true);
       } catch (err) {
