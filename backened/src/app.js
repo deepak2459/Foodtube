@@ -22,7 +22,9 @@ import foodpartnerIdroute from "./routes/foodpartnerId.route.js"
  
 const app = express() 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:
+    // "http://localhost:5173"
+   "https://foodtube-23.onrender.com",
    
     credentials:true
 }))  
