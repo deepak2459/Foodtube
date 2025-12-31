@@ -181,6 +181,12 @@ res.cookie("token",token)
    return  res.clearCookie("token")
    .json({message:"logout sucessfully"})
 
-}
+} 
 
-export {registerUser,loggedIn,logout,loggedInPartner,registerPartner,logout_Partner}
+async function authcheck(req,res){ 
+   const user = await User.findById(req.user.id).select("-password");
+   return res.json({ user });
+  
+} 
+
+export {registerUser,authcheck,loggedIn,logout,loggedInPartner,registerPartner,logout_Partner}

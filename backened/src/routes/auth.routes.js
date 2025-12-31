@@ -1,6 +1,6 @@
-import { loggedIn, logout, registerUser ,loggedInPartner,registerPartner,logout_Partner} from "../controllers/auth.controller.js";  
+import { loggedIn, authcheck, logout, registerUser ,loggedInPartner,registerPartner,logout_Partner} from "../controllers/auth.controller.js";  
 import { Router } from "express"; 
-
+import { checkAuthUserMiddleware } from "../middlewares/checking.js";
 
 const router = Router() 
 
@@ -8,6 +8,7 @@ const router = Router()
 router.post("/register/user",registerUser)
 router.post("/login/user",loggedIn)
 router.post("/logout/user",logout)
+router.get("/me",checkAuthUserMiddleware,authcheck)
 
 //  for partner
 router.post("/login/partner",loggedInPartner)

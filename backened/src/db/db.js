@@ -9,7 +9,7 @@ async function connectDb(){
         
     })
     .catch((err)=>{
-        console.log(`the errpr is coming:${err}`)
+        console.log(`the error r is coming:${err}`)
     })
 }
 

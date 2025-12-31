@@ -39,5 +39,5 @@ export const FoodModel = mongoose.model("Food",foodSchema)
 //     "email":"dgeib@184",
 //     "password":"arun135",
 //     "username":"deep75",
-//     "fullname":"deepak95"}
+//     "fullname":"deepak95"   }
  
